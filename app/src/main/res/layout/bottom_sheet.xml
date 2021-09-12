@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_sheet_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/purple_700"
+    android:orientation="vertical"
+    app:behavior_peekHeight="80dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/explanation"
+        android:textSize="@dimen/header_text_size" />
+
+    <TextView
+        android:id="@+id/desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_200"
+        android:gravity="center"
+        tools:text="We’re just a few weeks away from the official release of Android 12! As we put the finishing touches on the new version of Android, today we’re bringing you a final Beta update to help you with testing and development. For developers, now is the time to make sure your apps are ready!
+You can get Beta 5 today on your Pixel device, including on the Pixel 5a with 5G, by enrolling here for over-the-air updates. If you’re already enrolled, you’ll automatically get the update. You can also try Android 12 Beta 5 on select devices from several of our partners like Sharp. Visit the Android 12 developer site for details.
+Watch for more information on the official Android 12 release coming soon!" />
+
+</LinearLayout>
