@@ -13,4 +13,33 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.PictureOfTheDay.Moon">
+        <item name="colorPrimary">@color/mischka</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/santas_gray</item>
+        <item name="colorSecondary">@color/venus</item>
+        <item name="colorOnSecondary">@color/maverick</item>
+        <item name="colorSecondaryVariant">@color/old_lavender</item>
+    </style>
+
+    <style name="Theme.PictureOfTheDay.Mars">
+        <item name="colorPrimary">@color/flame_pea</item>
+        <item name="colorOnPrimary">@color/coral</item>
+        <item name="colorPrimaryDark">@color/totem_pole</item>
+        <item name="colorSecondary">@color/tamarind</item>
+        <item name="colorOnSecondary">@color/congo_brown</item>
+        <item name="colorSecondaryVariant">@color/diesel</item>
+    </style>
+
+    <style name="Theme.PictureOfTheDay.MilkyWay">
+        <item name="colorPrimary">@color/ship_cove</item>
+        <item name="colorOnPrimary">@color/perano</item>
+        <item name="colorPrimaryDark">@color/chambray</item>
+        <item name="colorSecondary">@color/jacarta</item>
+        <item name="colorOnSecondary">@color/butterfly_bush</item>
+        <item name="colorSecondaryVariant">@color/stratos</item>
+    </style>
+
+
 </resources>
