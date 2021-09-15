@@ -8,4 +8,8 @@
     <string name="menu_favorite">favorite</string>
     <string name="menu_settings">settings</string>
     <string name="explanation">Explanation</string>
+    <string name="settings">Settings</string>
+    <string name="moon_theme">Moon theme</string>
+    <string name="mars_theme">Mars theme</string>
+    <string name="milky_way_theme">Milky way theme</string>
 </resources>

@@ -6,8 +6,31 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+<!--    <color name="white">#FFFFFFFF</color>-->
 
     <color name="color_gray">#66000000</color>
 
+    <!--    moon theme-->
+    <color name="mischka">#D4D4DC</color>
+    <color name="white">#FFFFFF</color>
+    <color name="santas_gray">#A3A3AA</color>
+    <color name="venus">#9C949A</color>
+    <color name="maverick">#CDC4CB</color>
+    <color name="old_lavender">#6E666C</color>
+
+    <!--    mars theme-->
+    <color name="flame_pea">#CF5232</color>
+    <color name="coral">#FF825D</color>
+    <color name="totem_pole">#972007</color>
+    <color name="tamarind">#2E1010</color>
+    <color name="congo_brown">#593636</color>
+    <color name="diesel">#0E0000</color>
+
+    <!--    milky way theme-->
+    <color name="ship_cove">#6B7FC0</color>
+    <color name="perano">#9CAEF3</color>
+    <color name="chambray">#3A538F</color>
+    <color name="jacarta">#2D2068</color>
+    <color name="butterfly_bush">#5C4897</color>
+    <color name="stratos">#02003D</color>
 </resources>

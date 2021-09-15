@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.geekbrains.pictureoftheday.R
+import com.geekbrains.pictureoftheday.Tools
 import com.geekbrains.pictureoftheday.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -11,6 +12,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(Tools.getThemeId(this))
         ui = ActivityMainBinding.inflate(layoutInflater)
         setContentView(ui.root)
         setBottomNavigation()

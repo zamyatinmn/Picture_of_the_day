@@ -11,14 +11,13 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/wiki_container"
+            style="@style/WikiBox"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:passwordToggleDrawable="@drawable/ic_wiki"
-            app:passwordToggleEnabled="true">
+            app:layout_constraintTop_toTopOf="parent">
 
             <EditText
                 android:id="@+id/wiki"
@@ -32,7 +31,7 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/day_before_yesterday"
-            style="@style/Widget.MaterialComponents.Chip.Action"
+            style="@style/ChipStyle.Base"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/day_before_yesterday"
@@ -42,7 +41,7 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/yesterday"
-            style="@style/Widget.MaterialComponents.Chip.Action"
+            style="@style/ChipStyle.Base"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -53,6 +52,7 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/today"
+            style="@style/ChipStyle.Base"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/today"
