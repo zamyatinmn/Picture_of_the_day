@@ -94,11 +94,14 @@ class MainFragment : Fragment() {
                 ui.picture.setImageResource(R.drawable.ic_load_error_vector)
             }
             is AppState.Loading -> {
-                ui.loading.visibility = View.VISIBLE
+                ui.picture.load(R.drawable.progress_animation) {
+                    error(R.drawable.ic_load_error_vector)
+                }
             }
             is AppState.Success -> {
                 ui.loading.visibility = View.GONE
                 ui.picture.load(data.serverResponseData.url) {
+                    placeholder(R.drawable.progress_animation)
                     error(R.drawable.ic_no_photo_vector)
                 }
                 data.serverResponseData.title?.let {
