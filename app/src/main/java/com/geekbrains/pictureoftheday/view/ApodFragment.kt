@@ -40,6 +40,7 @@ class ApodFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         ui.viewPager.adapter = PagerAdapter(requireActivity())
+        ui.viewPager.setPageTransformer(ZoomOutPageTransformer())
         TabLayoutMediator(ui.tabLayout, ui.viewPager) { tab, position ->
             when(position){
                 DAY_BEFORE_YESTERDAY_INDEX -> tab.text = getString(R.string.day_before_yesterday)
