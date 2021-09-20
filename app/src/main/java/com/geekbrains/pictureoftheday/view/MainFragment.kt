@@ -1,5 +1,6 @@
 package com.geekbrains.pictureoftheday.view
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -101,10 +102,19 @@ class MainFragment : Fragment() {
                 }
             }
             is AppState.Success -> {
-                ui.picture.load(data.serverResponseData.url) {
-                    placeholder(R.drawable.progress_animation)
-                    error(R.drawable.ic_no_photo_vector)
-                    size(4000)
+                if (data.serverResponseData.mediaType == "video"){
+                    ui.picture.load(R.drawable.youtube_logo)
+                    ui.picture.setOnClickListener{
+                        val id = data.serverResponseData.url?.substringAfterLast("/")
+                            ?.substringBefore("?")
+                        watchYoutubeVideo(id!!)
+                    }
+                }else {
+                    ui.picture.load(data.serverResponseData.url) {
+                        placeholder(R.drawable.progress_animation)
+                        error(R.drawable.ic_no_photo_vector)
+                        size(4000)
+                    }
                 }
                 data.serverResponseData.title?.let {
                     ui.titlePhoto.text = it
@@ -113,6 +123,18 @@ class MainFragment : Fragment() {
                     ui.bot.desc.text = it
                 }
             }
+        }
+    }
+    fun watchYoutubeVideo(id: String) {
+        val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:$id"))
+        val webIntent = Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse("http://www.youtube.com/watch?v=$id")
+        )
+        try {
+            requireContext().startActivity(appIntent)
+        } catch (ex: ActivityNotFoundException) {
+            requireContext().startActivity(webIntent)
         }
     }
 
