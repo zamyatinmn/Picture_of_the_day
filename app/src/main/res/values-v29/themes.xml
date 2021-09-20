@@ -15,6 +15,12 @@
 
     </style>
 
+    <style name="BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="background">?colorOnSecondary</item>
+        <item name="itemIconTint">?colorSecondaryVariant</item>
+        <item name="itemTextColor">?colorSecondaryVariant</item>
+    </style>
+
       <style name="ChipStyle.Base" parent="@style/Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">?colorOnPrimary</item>
         <item name="chipCornerRadius">40dp</item>

@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
  */
 
 
-data class ServerResponseData(
+data class ServerApodData(
     @field:SerializedName("copyright") val copyright: String?,
     @field:SerializedName("date") val date: String?,
     @field:SerializedName("explanation") val explanation: String?,

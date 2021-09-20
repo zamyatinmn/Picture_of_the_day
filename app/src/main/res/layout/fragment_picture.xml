@@ -29,45 +29,17 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/day_before_yesterday"
-            style="@style/ChipStyle.Base"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/day_before_yesterday"
-            app:layout_constraintEnd_toStartOf="@id/yesterday"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/yesterday" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/yesterday"
-            style="@style/ChipStyle.Base"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/yesterday"
-            app:layout_constraintEnd_toStartOf="@id/today"
-            app:layout_constraintStart_toEndOf="@id/day_before_yesterday"
-            app:layout_constraintTop_toBottomOf="@id/wiki_container" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/today"
-            style="@style/ChipStyle.Base"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/today"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/yesterday"
-            app:layout_constraintTop_toTopOf="@id/yesterday" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/picture"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_max="@dimen/picture_max_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/day_before_yesterday"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
             tools:srcCompat="@drawable/ic_no_photo_vector" />
 
         <TextView
@@ -79,20 +51,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/picture"
             tools:text="Описание фото" />
-
-        <FrameLayout
-            android:id="@+id/loading"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.8"
-            android:background="@color/black"
-            tools:visibility="gone">
-
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
