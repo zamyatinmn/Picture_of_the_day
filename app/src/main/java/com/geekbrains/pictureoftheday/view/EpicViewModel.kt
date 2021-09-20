@@ -1,21 +1,23 @@
-package com.geekbrains.pictureoftheday.viewmodel
+package com.geekbrains.pictureoftheday.view
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.geekbrains.pictureoftheday.BuildConfig
+import com.geekbrains.pictureoftheday.model.Element
 import com.geekbrains.pictureoftheday.model.RequestToAPI
-import com.geekbrains.pictureoftheday.model.ServerApodData
+import com.geekbrains.pictureoftheday.viewmodel.AppState
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
 /**
- * Created by Maxim Zamyatin on 11.09.2021
+ * Created by Maxim Zamyatin on 20.09.2021
  */
 
-class MainViewModel(
+
+class EpicViewModel(
     private val liveData: MutableLiveData<AppState> = MutableLiveData(),
     private val request: RequestToAPI = RequestToAPI()
 ) : ViewModel() {
@@ -23,26 +25,26 @@ class MainViewModel(
         return liveData
     }
 
-    fun sendServerRequest(date: String) {
+    fun serverRequest() {
         liveData.postValue(AppState.Loading)
         val apiKey = BuildConfig.NASA_API_KEY
         if (apiKey.isBlank()) {
             liveData.postValue(AppState.Error(Throwable("Empty api key")))
         } else {
-            request.getAPI().getPictureOfTheDay(apiKey, date).enqueue(
-                object : Callback<ServerApodData> {
+            request.getAPI().getEarthPicture(apiKey).enqueue(
+                object : Callback<ArrayList<Element>> {
                     override fun onResponse(
-                        call: Call<ServerApodData>,
-                        response: Response<ServerApodData>
+                        call: Call<ArrayList<Element>>,
+                        response: Response<ArrayList<Element>>
                     ) {
                         if (response.isSuccessful && response.body() != null) {
-                            liveData.postValue(AppState.Success(response.body()!!))
+                            liveData.postValue(AppState.SuccessEpic(response.body()!!))
                         } else {
                             liveData.postValue(AppState.Error(Throwable("Something wrong..")))
                         }
                     }
 
-                    override fun onFailure(call: Call<ServerApodData>, t: Throwable) {
+                    override fun onFailure(call: Call<ArrayList<Element>>, t: Throwable) {
                         liveData.postValue(AppState.Error(t))
                     }
                 }

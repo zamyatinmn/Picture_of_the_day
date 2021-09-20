@@ -1,6 +1,7 @@
 package com.geekbrains.pictureoftheday.viewmodel
 
-import com.geekbrains.pictureoftheday.model.ServerResponseData
+import com.geekbrains.pictureoftheday.model.Element
+import com.geekbrains.pictureoftheday.model.ServerApodData
 
 
 /**
@@ -9,7 +10,9 @@ import com.geekbrains.pictureoftheday.model.ServerResponseData
 
 
 sealed class AppState {
-    data class Success(val serverResponseData: ServerResponseData) : AppState()
+    data class Success(val serverResponseData: ServerApodData) : AppState()
     data class Error(val error: Throwable) : AppState()
     object Loading : AppState()
+
+    data class SuccessEpic(val serverResponseData: ArrayList<Element>) : AppState()
 }

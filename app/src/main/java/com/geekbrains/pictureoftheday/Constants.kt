@@ -7,7 +7,8 @@ package com.geekbrains.pictureoftheday
 
 const val BASE_URL = "https://api.nasa.gov/"
 const val APOD_ENDPOINT = "planetary/apod"
-const val EPIC_ENDPOINT = "EPIC/api/natural/date/"
+const val EPIC_ENDPOINT = "EPIC/api/natural/images"
+const val EPIC_PICTURE_ENDPOINT = "EPIC/archive/natural/"
 const val API_KEY = "api_key"
 const val API_DATE = "date"
 const val TODAY_MODE = "today"
