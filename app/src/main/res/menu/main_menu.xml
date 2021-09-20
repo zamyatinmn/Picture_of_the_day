@@ -11,6 +11,13 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/menu_epic"
+        android:icon="@android:drawable/ic_menu_camera"
+        android:orderInCategory="10"
+        android:title="@string/epic"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/menu_favorite"
         android:icon="@drawable/ic_favourite_menu"
         android:orderInCategory="20"

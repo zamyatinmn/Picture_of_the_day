@@ -11,7 +11,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
+import com.geekbrains.pictureoftheday.DAY_BEFORE_YESTERDAY_MODE
 import com.geekbrains.pictureoftheday.R
+import com.geekbrains.pictureoftheday.TODAY_MODE
+import com.geekbrains.pictureoftheday.YESTERDAY_MODE
 import com.geekbrains.pictureoftheday.databinding.FragmentPictureBinding
 import com.geekbrains.pictureoftheday.viewmodel.AppState
 import com.geekbrains.pictureoftheday.viewmodel.MainViewModel
@@ -27,7 +30,11 @@ import java.util.*
 class MainFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance(mode: String = TODAY_MODE): Fragment {
+            val bundle = Bundle()
+            bundle.putString("mode", mode)
+            return MainFragment().apply { arguments = bundle }
+        }
     }
 
     private var _ui: FragmentPictureBinding? = null
@@ -56,7 +63,19 @@ class MainFragment : Fragment() {
         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val currentDate = sdf.format(Date().time)
 
-        viewModel.sendServerRequest(currentDate)
+        when (arguments?.getString("mode")) {
+            TODAY_MODE -> viewModel.sendServerRequest(currentDate)
+            YESTERDAY_MODE -> {
+                val date = Calendar.getInstance()
+                date.add(Calendar.DATE, -1)
+                viewModel.sendServerRequest(sdf.format(date.timeInMillis))
+            }
+            DAY_BEFORE_YESTERDAY_MODE -> {
+                val date = Calendar.getInstance()
+                date.add(Calendar.DATE, -2)
+                viewModel.sendServerRequest(sdf.format(date.timeInMillis))
+            }
+        }
 
         ui.wikiContainer.setEndIconOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW).apply {
@@ -66,22 +85,6 @@ class MainFragment : Fragment() {
             startActivity(intent)
         }
 
-        ui.yesterday.setOnClickListener {
-            val date = Calendar.getInstance()
-            date.add(Calendar.DATE, -1)
-//            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            viewModel.sendServerRequest(sdf.format(date.timeInMillis))
-        }
-
-        ui.today.setOnClickListener {
-            viewModel.sendServerRequest(currentDate)
-        }
-
-        ui.dayBeforeYesterday.setOnClickListener {
-            val date = Calendar.getInstance()
-            date.add(Calendar.DATE, -2)
-            viewModel.sendServerRequest(sdf.format(date.timeInMillis))
-        }
         bottomSheetBehavior = BottomSheetBehavior.from(ui.bot.bottomSheetContainer)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
@@ -89,7 +92,6 @@ class MainFragment : Fragment() {
     private fun renderData(data: AppState) {
         when (data) {
             is AppState.Error -> {
-                ui.loading.visibility = View.GONE
                 Toast.makeText(context, "PODData.Error", Toast.LENGTH_LONG).show()
                 ui.picture.setImageResource(R.drawable.ic_load_error_vector)
             }
@@ -99,10 +101,10 @@ class MainFragment : Fragment() {
                 }
             }
             is AppState.Success -> {
-                ui.loading.visibility = View.GONE
                 ui.picture.load(data.serverResponseData.url) {
                     placeholder(R.drawable.progress_animation)
                     error(R.drawable.ic_no_photo_vector)
+                    size(4000)
                 }
                 data.serverResponseData.title?.let {
                     ui.titlePhoto.text = it

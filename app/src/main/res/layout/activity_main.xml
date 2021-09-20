@@ -15,9 +15,9 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navi"
-        android:background="?colorOnSecondary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?colorOnSecondary"
         app:menu="@menu/main_menu" />
 
 </LinearLayout>

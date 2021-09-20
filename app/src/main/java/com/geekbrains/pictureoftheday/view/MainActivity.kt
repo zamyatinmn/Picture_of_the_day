@@ -19,26 +19,29 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(ui.container.id, MainFragment.newInstance())
+                .replace(ui.container.id, ApodFragment.newInstance())
                 .commit()
         }
 
     }
 
     private fun setBottomNavigation() {
-        ui.bottomNavi.  setOnNavigationItemSelectedListener {
-
+        ui.bottomNavi.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_main -> {
-                    changeScreen(MainFragment.newInstance())
+                    changeScreen(ApodFragment.newInstance())
                     true
                 }
-                R.id.menu_settings -> {
-                    changeScreen(SettingsFragment.newInstance())
+                R.id.menu_epic -> {
+                    changeScreen(EpicFragment.newInstance())
                     true
                 }
                 R.id.menu_favorite -> {
                     changeScreen(FavoriteFragment.newInstance())
+                    true
+                }
+                R.id.menu_settings -> {
+                    changeScreen(SettingsFragment.newInstance())
                     true
                 }
                 else -> false
