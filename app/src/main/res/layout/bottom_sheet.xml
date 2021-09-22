@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?colorPrimary"
+    android:minHeight="350dp"
     android:orientation="vertical"
     app:behavior_peekHeight="40dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
@@ -21,6 +22,7 @@
         android:id="@+id/desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:background="?colorSecondary"
         android:gravity="center"
         tools:text="We’re just a few weeks away from the official release of Android 12! As we put the finishing touches on the new version of Android, today we’re bringing you a final Beta update to help you with testing and development. For developers, now is the time to make sure your apps are ready!

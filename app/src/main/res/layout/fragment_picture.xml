@@ -8,28 +8,44 @@
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         app:layoutDescription="@xml/fragment_picture_scene"
+        app:layout_behavior=".CustomBehavior"
         tools:showPaths="true">
 
         <ImageView
             android:id="@+id/anchor"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="50dp"
             android:src="@drawable/ic_wiki"
-            app:layout_constraintTop_toTopOf="@id/wiki_container"
             app:layout_constraintBottom_toBottomOf="@id/wiki_container"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="50dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp"/>
+            app:layout_constraintTop_toTopOf="@id/wiki_container" />
 
         <ImageView
             android:id="@+id/anchor2"
-            android:src="@drawable/ic_arrow"
-            app:layout_constraintTop_toTopOf="@id/wiki_container"
-            app:layout_constraintBottom_toBottomOf="@id/wiki_container"
-            app:layout_constraintStart_toEndOf="@id/wiki_container"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="30dp"
-            android:layout_height="30dp"/>
+            android:layout_height="30dp"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintBottom_toBottomOf="@id/wiki_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/wiki_container"
+            app:layout_constraintTop_toTopOf="@id/wiki_container" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.2" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.8" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/topGuide"
@@ -70,12 +86,11 @@
             android:id="@+id/picture"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:minWidth="150dp"
             app:layout_constraintBottom_toBottomOf="@id/botGuide"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_max="@dimen/picture_max_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/topGuide"
-            app:layout_constraintVertical_bias="0.5"
             tools:srcCompat="@drawable/ic_no_photo_vector" />
 
         <TextView
