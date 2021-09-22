@@ -5,9 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/fragment_picture_scene"
+        tools:showPaths="true">
+
+        <ImageView
+            android:id="@+id/anchor"
+            android:src="@drawable/ic_wiki"
+            app:layout_constraintTop_toTopOf="@id/wiki_container"
+            app:layout_constraintBottom_toBottomOf="@id/wiki_container"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+
+        <ImageView
+            android:id="@+id/anchor2"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintTop_toTopOf="@id/wiki_container"
+            app:layout_constraintBottom_toBottomOf="@id/wiki_container"
+            app:layout_constraintStart_toEndOf="@id/wiki_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/topGuide"
@@ -66,7 +88,7 @@
             app:layout_constraintTop_toBottomOf="@id/botGuide"
             tools:text="Описание фото" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
     <include
         android:id="@+id/bot"
