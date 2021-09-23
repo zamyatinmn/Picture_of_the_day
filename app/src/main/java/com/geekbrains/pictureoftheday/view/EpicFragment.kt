@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.geekbrains.pictureoftheday.*
+import com.geekbrains.pictureoftheday.databinding.FragmentApodBinding
 import com.geekbrains.pictureoftheday.databinding.FragmentEpicBinding
 import com.geekbrains.pictureoftheday.viewmodel.AppState
 
@@ -20,26 +21,13 @@ import com.geekbrains.pictureoftheday.viewmodel.AppState
  */
 
 
-class EpicFragment : Fragment() {
+class EpicFragment : ViewBindingFragment<FragmentEpicBinding>(FragmentEpicBinding::inflate) {
     companion object {
         fun newInstance() = EpicFragment()
     }
 
     private val viewModel: EpicViewModel by lazy {
         ViewModelProvider(this).get(EpicViewModel::class.java)
-    }
-
-    private var _ui: FragmentEpicBinding? = null
-    private val ui: FragmentEpicBinding
-        get() = _ui!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _ui = FragmentEpicBinding.inflate(inflater)
-        return ui.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -87,10 +75,5 @@ class EpicFragment : Fragment() {
                 //do nothing
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _ui = null
     }
 }

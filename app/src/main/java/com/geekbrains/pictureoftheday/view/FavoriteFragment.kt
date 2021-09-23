@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.geekbrains.pictureoftheday.databinding.FragmentFavoriteBinding
+import com.geekbrains.pictureoftheday.databinding.FragmentPictureBinding
 
 
 /**
@@ -13,26 +14,8 @@ import com.geekbrains.pictureoftheday.databinding.FragmentFavoriteBinding
  */
 
 
-class FavoriteFragment : Fragment() {
+class FavoriteFragment : ViewBindingFragment<FragmentFavoriteBinding>(FragmentFavoriteBinding::inflate) {
     companion object {
         fun newInstance() = FavoriteFragment()
-    }
-
-    private var _ui: FragmentFavoriteBinding? = null
-    private val ui: FragmentFavoriteBinding
-        get() = _ui!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _ui = FragmentFavoriteBinding.inflate(inflater)
-        return ui.root
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _ui = null
     }
 }

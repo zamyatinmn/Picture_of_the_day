@@ -19,22 +19,9 @@ import com.google.android.material.tabs.TabLayoutMediator
  */
 
 
-class ApodFragment : Fragment() {
+class ApodFragment : ViewBindingFragment<FragmentApodBinding>(FragmentApodBinding::inflate) {
     companion object {
         fun newInstance() = ApodFragment()
-    }
-
-    private var _ui: FragmentApodBinding? = null
-    private val ui: FragmentApodBinding
-        get() = _ui!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _ui = FragmentApodBinding.inflate(inflater)
-        return ui.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,10 +38,5 @@ class ApodFragment : Fragment() {
 
         ui.tabLayout.setScrollPosition(TODAY_INDEX, 0f, true)
         ui.viewPager.currentItem = TODAY_INDEX
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _ui = null
     }
 }
