@@ -1,16 +1,12 @@
 package com.geekbrains.pictureoftheday.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.geekbrains.pictureoftheday.DAY_BEFORE_YESTERDAY_INDEX
 import com.geekbrains.pictureoftheday.R
 import com.geekbrains.pictureoftheday.TODAY_INDEX
 import com.geekbrains.pictureoftheday.YESTERDAY_INDEX
 import com.geekbrains.pictureoftheday.databinding.FragmentApodBinding
-import com.geekbrains.pictureoftheday.databinding.FragmentFavoriteBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -29,7 +25,7 @@ class ApodFragment : ViewBindingFragment<FragmentApodBinding>(FragmentApodBindin
         ui.viewPager.adapter = PagerAdapter(requireActivity())
         ui.viewPager.setPageTransformer(ZoomOutPageTransformer())
         TabLayoutMediator(ui.tabLayout, ui.viewPager) { tab, position ->
-            when(position){
+            when (position) {
                 DAY_BEFORE_YESTERDAY_INDEX -> tab.text = getString(R.string.day_before_yesterday)
                 YESTERDAY_INDEX -> tab.text = getString(R.string.yesterday)
                 TODAY_INDEX -> tab.text = getString(R.string.today)

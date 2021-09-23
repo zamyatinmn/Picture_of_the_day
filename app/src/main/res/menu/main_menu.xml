@@ -18,10 +18,10 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/menu_favorite"
-        android:icon="@drawable/ic_favourite_menu"
+        android:id="@+id/menu_mars"
+        android:icon="@drawable/ic_send"
         android:orderInCategory="20"
-        android:title="@string/menu_favorite"
+        android:title="@string/menu_mars"
         app:showAsAction="ifRoom" />
 
     <item

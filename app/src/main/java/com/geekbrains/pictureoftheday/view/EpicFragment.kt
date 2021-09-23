@@ -2,18 +2,16 @@ package com.geekbrains.pictureoftheday.view
 
 import android.os.Bundle
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.geekbrains.pictureoftheday.*
-import com.geekbrains.pictureoftheday.databinding.FragmentApodBinding
 import com.geekbrains.pictureoftheday.databinding.FragmentEpicBinding
 import com.geekbrains.pictureoftheday.viewmodel.AppState
+import com.geekbrains.pictureoftheday.viewmodel.EpicViewModel
 
 
 /**
@@ -53,9 +51,9 @@ class EpicFragment : ViewBindingFragment<FragmentEpicBinding>(FragmentEpicBindin
                 for (element in data.serverResponseData) {
                     val view = ImageView(requireContext())
                     val dateTime = element.date.split(" ")
-                    val date = dateTime[0].split("-")
+                    val date = dateTime[0].replace("-", "/")
 
-                    val url = "$BASE_URL$EPIC_PICTURE_ENDPOINT${date[0]}/${date[1]}/${date[2]}" +
+                    val url = "$BASE_URL$EPIC_PICTURE_ENDPOINT$date" +
                             "/png/${element.image}.png?$API_KEY=${BuildConfig.NASA_API_KEY}"
                     view.load(url) {
                         placeholder(R.drawable.progress_animation)
