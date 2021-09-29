@@ -24,16 +24,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:singleSelection="true">
 
+        <Button
+            android:id="@+id/themes_btn"
+            android:text="show themes"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <com.google.android.material.chip.Chip
             android:id="@+id/moon"
             style="@style/ChipStyle.Base"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:text="@string/moon_theme" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/mars"
             style="@style/ChipStyle.Base"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/mars_theme" />
@@ -41,6 +50,7 @@
         <com.google.android.material.chip.Chip
             android:id="@+id/milkyWay"
             style="@style/ChipStyle.Base"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/milky_way_theme" />
