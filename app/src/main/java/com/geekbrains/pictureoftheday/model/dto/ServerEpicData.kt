@@ -1,4 +1,4 @@
-package com.geekbrains.pictureoftheday.model
+package com.geekbrains.pictureoftheday.model.dto
 
 
 /**
@@ -6,7 +6,7 @@ package com.geekbrains.pictureoftheday.model
  */
 
 
-data class Element (
+data class Element(
     val identifier: String,
     val caption: String,
     val image: String,
@@ -20,19 +20,19 @@ data class Element (
     val coords: Coords
 )
 
-data class AttitudeQuaternions (
+data class AttitudeQuaternions(
     val q0: Double,
     val q1: Double,
     val q2: Double,
     val q3: Double
 )
 
-data class CentroidCoordinates (
+data class CentroidCoordinates(
     val lat: Double,
     val lon: Double
 )
 
-data class Coords (
+data class Coords(
     val centroid_coordinates: CentroidCoordinates,
     val dscovr_j2000_position: J2000Position,
     val lunar_j2000_position: J2000Position,
@@ -40,7 +40,7 @@ data class Coords (
     val attitude_quaternions: AttitudeQuaternions
 )
 
-data class J2000Position (
+data class J2000Position(
     val x: Double,
     val y: Double,
     val z: Double

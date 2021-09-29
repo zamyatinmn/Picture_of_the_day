@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
                     changeScreen(EpicFragment.newInstance())
                     true
                 }
-                R.id.menu_favorite -> {
-                    changeScreen(FavoriteFragment.newInstance())
+                R.id.menu_mars -> {
+                    changeScreen(MarsFragment.newInstance())
                     true
                 }
                 R.id.menu_settings -> {

@@ -4,9 +4,7 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -28,7 +26,7 @@ import java.util.*
  * Created by Maxim Zamyatin on 11.09.2021
  */
 
-class MainFragment : Fragment() {
+class MainFragment : ViewBindingFragment<FragmentPictureBinding>(FragmentPictureBinding::inflate) {
 
     companion object {
         fun newInstance(mode: String = TODAY_MODE): Fragment {
@@ -38,23 +36,10 @@ class MainFragment : Fragment() {
         }
     }
 
-    private var _ui: FragmentPictureBinding? = null
-    private val ui: FragmentPictureBinding
-        get() = _ui!!
-
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
 
     private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _ui = FragmentPictureBinding.inflate(inflater)
-        return ui.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -102,14 +87,14 @@ class MainFragment : Fragment() {
                 }
             }
             is AppState.Success -> {
-                if (data.serverResponseData.mediaType == "video"){
+                if (data.serverResponseData.mediaType == "video") {
                     ui.picture.load(R.drawable.youtube_logo)
-                    ui.picture.setOnClickListener{
+                    ui.picture.setOnClickListener {
                         val id = data.serverResponseData.url?.substringAfterLast("/")
                             ?.substringBefore("?")
                         watchYoutubeVideo(id!!)
                     }
-                }else {
+                } else {
                     ui.picture.load(data.serverResponseData.url) {
                         placeholder(R.drawable.progress_animation)
                         error(R.drawable.ic_no_photo_vector)
@@ -125,7 +110,8 @@ class MainFragment : Fragment() {
             }
         }
     }
-    fun watchYoutubeVideo(id: String) {
+
+    private fun watchYoutubeVideo(id: String) {
         val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:$id"))
         val webIntent = Intent(
             Intent.ACTION_VIEW,
@@ -136,10 +122,5 @@ class MainFragment : Fragment() {
         } catch (ex: ActivityNotFoundException) {
             requireContext().startActivity(webIntent)
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _ui = null
     }
 }

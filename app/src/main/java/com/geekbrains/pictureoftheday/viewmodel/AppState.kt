@@ -1,7 +1,8 @@
 package com.geekbrains.pictureoftheday.viewmodel
 
-import com.geekbrains.pictureoftheday.model.Element
-import com.geekbrains.pictureoftheday.model.ServerApodData
+import com.geekbrains.pictureoftheday.model.dto.Element
+import com.geekbrains.pictureoftheday.model.dto.ServerApodData
+import com.geekbrains.pictureoftheday.model.dto.ServerMarsPhoto
 
 
 /**
@@ -15,4 +16,5 @@ sealed class AppState {
     object Loading : AppState()
 
     data class SuccessEpic(val serverResponseData: ArrayList<Element>) : AppState()
+    data class SuccessMars(val serverResponseData: ServerMarsPhoto) : AppState()
 }

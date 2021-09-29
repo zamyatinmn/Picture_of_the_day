@@ -1,16 +1,17 @@
 package com.geekbrains.pictureoftheday.view
 
-import android.content.Context
 import android.os.Bundle
+import android.transition.Slide
+import android.transition.TransitionManager
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.geekbrains.pictureoftheday.R
 import com.geekbrains.pictureoftheday.Tools
+import com.geekbrains.pictureoftheday.databinding.FragmentMarsBinding
 import com.geekbrains.pictureoftheday.databinding.FragmentSettingsBinding
-import com.google.android.material.chip.ChipGroup
 
 
 /**
@@ -18,27 +19,24 @@ import com.google.android.material.chip.ChipGroup
  */
 
 
-class SettingsFragment : Fragment() {
+class SettingsFragment :  ViewBindingFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
     companion object {
         fun newInstance() = SettingsFragment()
-    }
-
-    private var _ui: FragmentSettingsBinding? = null
-    private val ui: FragmentSettingsBinding
-        get() = _ui!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _ui = FragmentSettingsBinding.inflate(inflater)
-        return ui.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         changeTheme()
+        ui.themesBtn.setOnClickListener{
+            TransitionManager.beginDelayedTransition(ui.themes)
+            val params: ViewGroup.LayoutParams = ui.themesBtn.layoutParams
+            params.width = ui.root.width
+            params.height = 20
+            ui.themesBtn.layoutParams = params
+            ui.moon.visibility = View.VISIBLE
+            ui.mars.visibility = View.VISIBLE
+            ui.milkyWay.visibility = View.VISIBLE
+        }
     }
 
     private fun changeTheme() {
@@ -50,13 +48,7 @@ class SettingsFragment : Fragment() {
                 ui.milkyWay.id -> activity?.setTheme(R.style.Theme_PictureOfTheDay_MilkyWay)
             }
             Tools.putTheme(requireActivity(), checkedId)
-//            Toast.makeText(requireContext(), "$checkedId", Toast.LENGTH_SHORT).show()
             activity?.recreate()
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _ui = null
     }
 }
