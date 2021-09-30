@@ -9,17 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
  */
 
 interface ItemTouchHelperAdapter {
-    fun onItemMove(fromPosition:Int,toPosition:Int)
-    fun onItemDismiss(position:Int)
+    fun onItemMove(fromPosition: Int, toPosition: Int)
+    fun onItemDismiss(position: Int)
 }
 
 interface ItemTouchHelperViewHolder {
     fun onItemSelected()
     fun onItemClear()
-}
-
-interface OnListItemClickListener {
-    fun onItemClick(date:Data)
 }
 
 interface OnStartDragListener {
@@ -41,8 +37,12 @@ class ItemTouchHelperCallback(private val adapter: RecyclerAdapter) :
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
     ): Int {
-        val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
-        val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
+        var dragFlags = 0
+        var swipeFlags = 0
+        if (viewHolder !is RecyclerAdapter.HeaderItemViewHolder) {
+            dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
+            swipeFlags = ItemTouchHelper.END
+        }
         return makeMovementFlags(
             dragFlags,
             swipeFlags

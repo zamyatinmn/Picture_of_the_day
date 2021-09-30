@@ -1,16 +1,19 @@
 package com.geekbrains.pictureoftheday.view.recycler
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.view.MotionEventCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.geekbrains.pictureoftheday.R
 import com.geekbrains.pictureoftheday.databinding.RecyclerItemAnotherBinding
 import com.geekbrains.pictureoftheday.databinding.RecyclerItemBinding
 import com.geekbrains.pictureoftheday.databinding.RecyclerItemHeaderBinding
+import java.util.*
 
 
 /**
@@ -19,10 +22,35 @@ import com.geekbrains.pictureoftheday.databinding.RecyclerItemHeaderBinding
 
 
 class RecyclerAdapter(
-    private var onListItemClickListener: OnListItemClickListener,
     private var dragListener: OnStartDragListener,
     private var data: MutableList<Data>
-) : RecyclerView.Adapter<BaseViewHolder>(), ItemTouchHelperAdapter {
+) : RecyclerView.Adapter<BaseViewHolder>(), ItemTouchHelperAdapter,
+    StickyHeaderItemDecorator.StickyHeader {
+
+    override fun getHeaderPositionForItem(itemPosition: Int): Int {
+        var headerPosition = 0
+        var itemPos = itemPosition
+        do {
+            if (isHeader(itemPos)) {
+                headerPosition = itemPos
+                break
+            }
+            itemPos -= 1
+        } while (itemPos >= 0)
+        return headerPosition
+    }
+
+    override fun getHeaderLayout(headerPosition: Int): Int {
+        return R.layout.recycler_item_header
+    }
+
+    override fun bindHeaderData(header: View, headerPosition: Int) {
+        header.findViewById<TextView>(R.id.text).text = data[headerPosition].text
+    }
+
+    override fun isHeader(itemPosition: Int): Boolean {
+        return data[itemPosition].type == TYPE_HEADER
+    }
 
     companion object {
         const val TYPE_DEFAULT = 0
@@ -75,8 +103,16 @@ class RecyclerAdapter(
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
-        data.removeAt(fromPosition).apply {
-            data.add(if (toPosition > fromPosition) toPosition - 1 else toPosition, this)
+        if (fromPosition < toPosition) {
+            for (i in fromPosition until toPosition) {
+                Collections.swap(data, i, i + 1)
+            }
+        } else {
+            for (i in fromPosition downTo toPosition + 1) {
+                if (toPosition != 0) {
+                    Collections.swap(data, i, i - 1)
+                }
+            }
         }
         notifyItemMoved(fromPosition, toPosition)
     }
@@ -86,23 +122,17 @@ class RecyclerAdapter(
         notifyItemRemoved(position)
     }
 
-    inner class HeaderItemViewHolder(view: View) : BaseViewHolder(view), ItemTouchHelperViewHolder {
+    inner class HeaderItemViewHolder(view: View) : BaseViewHolder(view) {
         override fun bind(data: Data) {
             RecyclerItemHeaderBinding.bind(itemView).apply {
                 text.text = data.text
             }
         }
-
-        override fun onItemSelected() {
-            itemView.setBackgroundColor(Color.LTGRAY)
-        }
-
-        override fun onItemClear() {
-            itemView.setBackgroundColor(0)
-        }
     }
 
-    inner class DefaultItemViewHolder(view: View) : BaseViewHolder(view), ItemTouchHelperViewHolder {
+    inner class DefaultItemViewHolder(view: View) : BaseViewHolder(view),
+        ItemTouchHelperViewHolder {
+        @SuppressLint("ClickableViewAccessibility")
         override fun bind(data: Data) {
             RecyclerItemBinding.bind(itemView).apply {
                 text.text = data.text
@@ -115,8 +145,8 @@ class RecyclerAdapter(
                 }
                 add.setOnClickListener { addItem() }
                 delete.setOnClickListener { removeItem() }
-                burger.setOnTouchListener { v, event ->
-                    if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                burger.setOnTouchListener { _, event ->
+                    if (event.action == MotionEvent.ACTION_DOWN) {
                         dragListener.onStartDrag(this@DefaultItemViewHolder)
                     }
                     false
@@ -127,24 +157,6 @@ class RecyclerAdapter(
         private fun toggleText() {
             notifyItemChanged(layoutPosition)
         }
-
-//        private fun moveUp() {
-//            layoutPosition.takeIf { it > 1 }?.also {
-//                data.removeAt(it).apply {
-//                    data.add(it - 1, this)
-//                }
-//                notifyItemMoved(it, it - 1)
-//            }
-//        }
-//
-//        private fun moveDown() {
-//            layoutPosition.takeIf { it < itemCount - 1 }?.also {
-//                data.removeAt(it).apply {
-//                    data.add(it + 1, this)
-//                }
-//                notifyItemMoved(it, it + 1)
-//            }
-//        }
 
         private fun addItem() {
             data.add(layoutPosition, Data("Generated", TYPE_DEFAULT))
@@ -165,7 +177,9 @@ class RecyclerAdapter(
         }
     }
 
-    inner class AnotherItemViewHolder(view: View) : BaseViewHolder(view), ItemTouchHelperViewHolder {
+    inner class AnotherItemViewHolder(view: View) : BaseViewHolder(view),
+        ItemTouchHelperViewHolder {
+        @SuppressLint("ClickableViewAccessibility")
         override fun bind(data: Data) {
             RecyclerItemAnotherBinding.bind(itemView).apply {
                 text.text = data.text
@@ -176,8 +190,8 @@ class RecyclerAdapter(
                 }
                 add.setOnClickListener { addItem() }
                 delete.setOnClickListener { removeItem() }
-                burger.setOnTouchListener { v, event ->
-                    if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                burger.setOnTouchListener { _, event ->
+                    if (event.action == MotionEvent.ACTION_DOWN) {
                         dragListener.onStartDrag(this@AnotherItemViewHolder)
                     }
                     false
