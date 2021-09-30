@@ -1,6 +1,5 @@
 package com.geekbrains.pictureoftheday.view
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -92,7 +91,9 @@ class MainFragment : ViewBindingFragment<FragmentPictureBinding>(FragmentPicture
                     ui.picture.setOnClickListener {
                         val id = data.serverResponseData.url?.substringAfterLast("/")
                             ?.substringBefore("?")
-                        watchYoutubeVideo(id!!)
+                        childFragmentManager.beginTransaction()
+                            .add(ui.coord.id, VideoFragment.newInstance(id!!))
+                            .commit()
                     }
                 } else {
                     ui.picture.load(data.serverResponseData.url) {
@@ -108,19 +109,6 @@ class MainFragment : ViewBindingFragment<FragmentPictureBinding>(FragmentPicture
                     ui.bot.desc.text = it
                 }
             }
-        }
-    }
-
-    private fun watchYoutubeVideo(id: String) {
-        val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:$id"))
-        val webIntent = Intent(
-            Intent.ACTION_VIEW,
-            Uri.parse("http://www.youtube.com/watch?v=$id")
-        )
-        try {
-            requireContext().startActivity(appIntent)
-        } catch (ex: ActivityNotFoundException) {
-            requireContext().startActivity(webIntent)
         }
     }
 }
