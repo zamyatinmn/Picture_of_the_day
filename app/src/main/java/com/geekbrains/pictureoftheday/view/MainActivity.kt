@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.geekbrains.pictureoftheday.R
 import com.geekbrains.pictureoftheday.Tools
 import com.geekbrains.pictureoftheday.databinding.ActivityMainBinding
+import com.geekbrains.pictureoftheday.view.recycler.RecyclerFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var ui: ActivityMainBinding
@@ -42,6 +43,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.menu_settings -> {
                     changeScreen(SettingsFragment.newInstance())
+                    true
+                }
+                R.id.menu_rec -> {
+                    changeScreen(RecyclerFragment.newInstance())
                     true
                 }
                 else -> false
