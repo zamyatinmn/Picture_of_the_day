@@ -2,6 +2,7 @@ package com.geekbrains.pictureoftheday.view
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -109,6 +110,9 @@ class MainFragment : ViewBindingFragment<FragmentPictureBinding>(FragmentPicture
                 }
                 data.serverResponseData.title?.let {
                     ui.titlePhoto.text = it
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        ui.titlePhoto.typeface = resources.getFont(R.font.ubuntu)
+                    }
                 }
                 data.serverResponseData.explanation.let {
                     ui.bot.desc.text = SpannableStringBuilder(it).apply {
