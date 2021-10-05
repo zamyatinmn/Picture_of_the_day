@@ -3,6 +3,11 @@ package com.geekbrains.pictureoftheday.view
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.BackgroundColorSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -106,9 +111,58 @@ class MainFragment : ViewBindingFragment<FragmentPictureBinding>(FragmentPicture
                     ui.titlePhoto.text = it
                 }
                 data.serverResponseData.explanation.let {
-                    ui.bot.desc.text = it
+                    setClownSpans(it)
                 }
             }
         }
     }
+
+    private fun setClownSpans(text: String?) {
+        ui.bot.desc.text = SpannableStringBuilder(text).apply {
+            text?.split(" ")?.forEachIndexed() { i, word ->
+                var start = 0
+                var end = 0
+                when {
+                    word == "Earth" -> {
+                        val indexes = this.indexesOf(word)
+                        indexes.forEach { index ->
+                            setSpan(
+                                BackgroundColorSpan(resources.getColor(R.color.green)),
+                                index,
+                                index + word.length,
+                                Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                            )
+                        }
+                    }
+                    i % 2 == 0 -> {
+                        end = start + word.length
+                        setSpan(
+                            ForegroundColorSpan(resources.getColor(R.color.congo_brown)),
+                            start,
+                            end,
+                            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                        )
+                    }
+                    else -> {
+                        setSpan(
+                            UnderlineSpan(),
+                            end + 1,
+                            end + word.length + 1,
+                            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                        )
+                    }
+                }
+                start += word.length + 1
+            }
+        }
+    }
+
+    fun ignoreCaseOpt(ignoreCase: Boolean) =
+        if (ignoreCase) setOf(RegexOption.IGNORE_CASE) else emptySet()
+
+    fun SpannableStringBuilder?.indexesOf(pat: String, ignoreCase: Boolean = true): List<Int> =
+        pat.toRegex(ignoreCaseOpt(ignoreCase))
+            .findAll(this ?: "")
+            .map { it.range.first }
+            .toList()
 }
