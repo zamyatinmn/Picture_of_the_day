@@ -111,48 +111,44 @@ class MainFragment : ViewBindingFragment<FragmentPictureBinding>(FragmentPicture
                     ui.titlePhoto.text = it
                 }
                 data.serverResponseData.explanation.let {
-                    setClownSpans(it)
-                }
-            }
-        }
-    }
-
-    private fun setClownSpans(text: String?) {
-        ui.bot.desc.text = SpannableStringBuilder(text).apply {
-            text?.split(" ")?.forEachIndexed() { i, word ->
-                var start = 0
-                var end = 0
-                when {
-                    word == "Earth" -> {
-                        val indexes = this.indexesOf(word)
-                        indexes.forEach { index ->
-                            setSpan(
-                                BackgroundColorSpan(resources.getColor(R.color.green)),
-                                index,
-                                index + word.length,
-                                Spannable.SPAN_INCLUSIVE_INCLUSIVE
-                            )
+                    ui.bot.desc.text = SpannableStringBuilder(it).apply {
+                        var start = 0
+                        var end = 0
+                        it?.split(" ")?.forEachIndexed() { i, word ->
+                            when {
+                                word == "Earth" -> {
+                                    val indexes = this.indexesOf(word)
+                                    indexes.forEach { index ->
+                                        setSpan(
+                                            BackgroundColorSpan(resources.getColor(R.color.green)),
+                                            index,
+                                            index + word.length,
+                                            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                                        )
+                                    }
+                                }
+                                i % 2 == 0 -> {
+                                    end = start + word.length
+                                    setSpan(
+                                        ForegroundColorSpan(resources.getColor(R.color.congo_brown)),
+                                        start,
+                                        end,
+                                        Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                                    )
+                                }
+                                else -> {
+                                    setSpan(
+                                        UnderlineSpan(),
+                                        end + 1,
+                                        end + word.length + 1,
+                                        Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                                    )
+                                }
+                            }
+                            start += word.length + 1
                         }
                     }
-                    i % 2 == 0 -> {
-                        end = start + word.length
-                        setSpan(
-                            ForegroundColorSpan(resources.getColor(R.color.congo_brown)),
-                            start,
-                            end,
-                            Spannable.SPAN_INCLUSIVE_INCLUSIVE
-                        )
-                    }
-                    else -> {
-                        setSpan(
-                            UnderlineSpan(),
-                            end + 1,
-                            end + word.length + 1,
-                            Spannable.SPAN_INCLUSIVE_INCLUSIVE
-                        )
-                    }
                 }
-                start += word.length + 1
             }
         }
     }
