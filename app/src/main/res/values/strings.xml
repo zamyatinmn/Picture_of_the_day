@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Picture of the day</string>
     <string name="wikipedia">wikipedia</string>
-    <string name="day_before_yesterday">day before yesterday</string>
+    <string name="day_before_yesterday">day before</string>
     <string name="yesterday">yesterday</string>
     <string name="today">today</string>
     <string name="menu_main">main</string>

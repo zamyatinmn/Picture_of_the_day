@@ -61,5 +61,8 @@
         <item name="colorSecondaryVariant">@color/stratos</item>
     </style>
 
+    <style name="Theme.PictureOfTheDay.Launcher">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
 
 </resources>
