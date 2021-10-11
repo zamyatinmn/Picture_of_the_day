@@ -1,6 +1,7 @@
 package com.geekbrains.pictureoftheday.view
 
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -14,15 +15,19 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import coil.ImageLoader
 import coil.load
-import com.geekbrains.pictureoftheday.DAY_BEFORE_YESTERDAY_MODE
-import com.geekbrains.pictureoftheday.R
-import com.geekbrains.pictureoftheday.TODAY_MODE
-import com.geekbrains.pictureoftheday.YESTERDAY_MODE
+import coil.request.ImageRequest
+import coil.request.SuccessResult
+import com.geekbrains.pictureoftheday.*
 import com.geekbrains.pictureoftheday.databinding.FragmentPictureBinding
 import com.geekbrains.pictureoftheday.viewmodel.AppState
 import com.geekbrains.pictureoftheday.viewmodel.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -102,10 +107,26 @@ class MainFragment : ViewBindingFragment<FragmentPictureBinding>(FragmentPicture
                             .commit()
                     }
                 } else {
-                    ui.picture.load(data.serverResponseData.url) {
-                        placeholder(R.drawable.progress_animation)
-                        error(R.drawable.ic_no_photo_vector)
-                        size(4000)
+                    val coroutineScope = CoroutineScope(Dispatchers.Default)
+                    coroutineScope.launch {
+                        val loader = ImageLoader(requireContext())
+                        val request = ImageRequest.Builder(requireContext())
+                            .data(data.serverResponseData.url)
+                            .allowHardware(false)
+                            .size(4000)
+                            .build()
+                        try {
+                            val result = (loader.execute(request) as SuccessResult).drawable
+                            val bitmap = (result as BitmapDrawable).bitmap
+                            withContext(Dispatchers.Main) {
+                                ui.picture.setImageBitmap(Tools.getRoundedCornerBitmap(bitmap, 500))
+                            }
+                        } catch (e: Exception) {
+                            withContext(Dispatchers.Main) {
+                                ui.picture.load(R.drawable.ic_no_photo_vector)
+                            }
+                        }
+
                     }
                 }
                 data.serverResponseData.title?.let {
