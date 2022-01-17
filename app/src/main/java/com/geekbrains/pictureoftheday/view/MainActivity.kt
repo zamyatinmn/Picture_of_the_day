@@ -1,6 +1,7 @@
 package com.geekbrains.pictureoftheday.view
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.geekbrains.pictureoftheday.R
@@ -17,13 +18,6 @@ class MainActivity : AppCompatActivity() {
         ui = ActivityMainBinding.inflate(layoutInflater)
         setContentView(ui.root)
         setBottomNavigation()
-
-//        if (savedInstanceState == null) {
-//            supportFragmentManager.beginTransaction()
-//                .replace(ui.container.id, ApodFragment.newInstance())
-//                .commit()
-//        }
-
     }
 
     private fun setBottomNavigation() {
@@ -55,7 +49,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun changeScreen(fragment: Fragment) {
+        if (ui.container.visibility == View.GONE) activateFragmentContainer()
         supportFragmentManager.popBackStack()
         supportFragmentManager.beginTransaction().replace(ui.container.id, fragment).commit()
+    }
+
+    private fun activateFragmentContainer(){
+        ui.container.visibility = View.VISIBLE
+        ui.hello.visibility = View.GONE
     }
 }
