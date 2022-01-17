@@ -18,11 +18,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(ui.root)
         setBottomNavigation()
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(ui.container.id, ApodFragment.newInstance())
-                .commit()
-        }
+//        if (savedInstanceState == null) {
+//            supportFragmentManager.beginTransaction()
+//                .replace(ui.container.id, ApodFragment.newInstance())
+//                .commit()
+//        }
 
     }
 
