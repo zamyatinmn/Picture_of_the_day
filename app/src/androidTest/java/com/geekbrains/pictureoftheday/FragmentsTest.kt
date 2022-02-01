@@ -1,19 +1,13 @@
 package com.geekbrains.pictureoftheday
 
-import android.view.View
-import android.widget.FrameLayout
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
-import androidx.lifecycle.Lifecycle
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.geekbrains.pictureoftheday.view.SettingsFragment
-import com.google.android.material.chip.Chip
-import junit.framework.TestCase
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -36,21 +30,21 @@ class FragmentsTest {
     }
 
     @Test
-    fun settings_checkChipMoon(){
+    fun settings_checkChipMoon() {
         onView(withId(R.id.themes_btn)).perform(ViewActions.click())
         val assertion = matches(isDisplayed())
         onView(withId(R.id.moon)).check(assertion)
     }
 
     @Test
-    fun settings_checkChipMars(){
+    fun settings_checkChipMars() {
         onView(withId(R.id.themes_btn)).perform(ViewActions.click())
         val assertion = matches(isDisplayed())
         onView(withId(R.id.mars)).check(assertion)
     }
 
     @Test
-    fun settings_checkChipMilkyWay(){
+    fun settings_checkChipMilkyWay() {
         onView(withId(R.id.themes_btn)).perform(ViewActions.click())
         val assertion = matches(isDisplayed())
         onView(withId(R.id.milkyWay)).check(assertion)
